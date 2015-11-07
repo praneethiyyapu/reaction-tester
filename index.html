@@ -1,0 +1,95 @@
+<doctype! html>
+<html>
+<head>
+	<title>Reaction Tester</title>
+</head>
+<body>
+	<style type="text/css">
+		
+		#shape{
+			width:125px;
+			height:125px;
+			background-color:red;
+			position:relative;
+		}
+		#printdiv{
+			font-family:"Lucida Console", Monaco, monospace;
+		}
+		#time{
+			font-weight:bold;
+		}
+		
+	</style>
+	
+	
+	<div></div>
+	
+	<div id="printdiv">
+		<h2>Reaction Tester</h2>
+		Try to click the shapes as fast as possible! Start the game by clicking the red square.<br><br>
+		Your reaction time is :<span id ="time"> 0 seconds</span>
+	</div>
+	<br>
+	
+	<div id="shape">
+	</div>
+	
+	<script type ="text/javascript">
+	
+		function getRandomColor() {
+			var letters = '0123456789ABCDEF'.split('');
+			var color = '#';
+			for (var i = 0; i < 6; i++ ) {
+				color += letters[Math.floor(Math.random() * 16)];
+			}
+		return color;
+		}
+		
+		var randColor = getRandomColor();
+		var reactionTime = 0;
+		var curTime = 0;
+		var clickTime = 0;
+		var randTime = 0;
+		var topPos = 0;
+		var leftPos = 0
+		
+		
+		
+		curTime = Date.now();
+		document.getElementById("shape").onclick=function(){
+		
+			randTime = Math.random();
+		    randTime = randTime*2000;
+			this.style.display="none";
+			topPos = Math.random();
+			topPos = topPos*300;
+			leftPos = Math.random();
+			leftPos = leftPos*1000;
+            this.style.top=topPos+"px";
+			this.style.left=leftPos+"px";
+			clickTime = Date.now();
+			reactionTime = (clickTime-curTime)/1000;
+			
+			document.getElementById("time").innerHTML = 
+			" "+reactionTime+" seconds";
+			
+		
+		setTimeout(function(){
+			if (Math.random()*10>5){
+			document.getElementById("shape").style.borderRadius="125px";
+			}
+			else{
+			document.getElementById("shape").style.borderRadius="0px";
+			}
+			document.getElementById("shape").style.display="block";
+			document.getElementById("shape").style.backgroundColor=getRandomColor();
+			curTime=Date.now();
+		},randTime);
+			
+		}
+			
+	
+	
+	</script>
+</body>
+</html>
